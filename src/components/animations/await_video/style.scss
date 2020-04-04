@@ -1,0 +1,38 @@
+.await_video_animation{
+   width: 100%;
+  
+
+    .video_animation{
+        width: 25%;
+        padding: 100px 0; 
+        
+        position: relative;
+        
+    }
+    .circle{
+        display: inline-block;
+        position: absolute;
+        top:50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 20px;
+        border-right: 1px solid red;
+        border-top: 1px solid red;
+        border-bottom:2px solid red;
+        border-radius: 50%;
+        margin: 0 auto;  
+        transform: rotate(0deg);
+        animation: girar 1s infinite;
+        animation-timing-function: linear;
+
+    }
+
+    @keyframes girar {
+        from {  
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg); 
+        }
+      }
+} 

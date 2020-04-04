@@ -1,14 +1,50 @@
 .home{
 
     main{
-        .container{
+
+      
+          width: 100%;
+                  .container_video{
             width: 25%;
+            margin: 10px 0;
+                    cursor: pointer;
           
             .video{
-                background-color: red;
-                margin: 0 5px;
-            }
+         
+               // margin: 10px 5px;
+                padding:  5px 10px;
+                figure{
+               
+                }
+                img{
+                    width: 100%;
+     
+                }
+                .box_title{
+                    color: black;
+                    line-height: 25px;
+                    
+                }
+            } 
         }
+    
+       .container{
+           width: 100%;
+           text-align: center;
+          
+           span{
+                font-size: 20px;
+                background-color: red;
+                border-radius: 15px;
+                color:white;
+                padding: 5px 20px;
+                cursor: pointer;
+           }
+           span:active{
+                opacity: 0.3;
+           }
+            
+       }
     }
 
 }

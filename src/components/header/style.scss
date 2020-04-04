@@ -1,0 +1,26 @@
+header.flex{
+    justify-content: center;
+
+    .container{
+        display: inline-block;
+        margin: 10px 0;
+        position: relative;
+        .btn_search{
+            position: absolute;
+            top:5px;
+            right: 5px;
+            font-size: 20px;
+            cursor: pointer;
+       
+           
+        }
+        input{
+            font-size: 20px;
+           border-right:none;
+           padding-right: 30px;
+
+        }
+
+    }
+
+}
