@@ -5,10 +5,10 @@ export default class ApiYoutube {
 
     constructor(){
         this.host = 'https://www.googleapis.com/youtube/v3/';
-        this.keyYoutube =''  
+        this.keyYoutube ='AIzaSyBUKkrIe8CXTNOiZ7iqJ1c5-SxAir3jm7M'  
         this.myHeaders=new Headers();
         this.myInit = { method: 'GET',
-        headers: myHeaders,
+        headers: this.myHeaders,
         mode: 'cors',
         cache: 'default',
         Authorization:'Bearer '+ this.keyYoutube,
@@ -17,7 +17,7 @@ export default class ApiYoutube {
     } 
      get= (endpoint)=>{   
            return new Promise((resolver,reject)=>{
-            fetch(this.host+endpoint+'key='+keyYoutube,this.myInit)
+            fetch(this.host+endpoint+'key='+this.keyYoutube,this.myInit)
             .then((res)=>{
                 resolver(res.json());
 

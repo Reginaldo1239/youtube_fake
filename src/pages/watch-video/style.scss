@@ -1,0 +1,16 @@
+    .watch_video{
+        main.flex{
+                justify-content: center;
+           
+            .container{
+                width: 50%;
+                iframe{
+                    width:  100%;
+                    min-height: 500px;
+                }
+                .box_text p{
+                    margin: 10px 0;
+                }
+            }
+        }
+    }

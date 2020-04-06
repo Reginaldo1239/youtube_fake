@@ -11,62 +11,81 @@ export default function Home (props){
     const [search,setSearch] =useState(''); 
     const [videos,setVideos] = useState([]);
     const [order,setOrder] = useState('relevance')
-    const [iniciar, setIniciar]= useState(true);
+    const [updateListVideo, setUpdateListVideo]= useState(true);
+
     useEffect(() => {
-        // Atualiza o titulo do documento usando a API do browser
-        document.title = `Você clicou ${count} vezes`;
-        if(iniciar)
-            NewRequestVideos();
-            setIniciar(false)
+
+
+      
+      if(window.location.search.indexOf('?q=') != -1 && updateListVideo){
+        let q = window.location.search.split('?q=')[1];
+          NewRequestVideos(q,order);
+          setUpdateListVideo(false)
+      }else{
+        if(updateListVideo){
+          NewRequestVideos(search,order);
+          setUpdateListVideo(false)
+           }     
+           }
+      
+
       });
-    const  NewRequestVideos = async()=>{
-        let resultApiYoutube= new  ApiYoutube()
-   
-            resultApiYoutube  =   await resultApiYoutube.get( `search?part=snippet&maxResults=${maxResults}&q=${search}&type=video&order=${order}&`);
-            console.log(resultApiYoutube)
-            if(resultApiYoutube.items !=undefined){
-            setTimeout(()=>{
-                setVideos(resultApiYoutube.items)
-            setNextPageToken(resultApiYoutube.nextPageToken)
-            },2000) 
-        }
-        
-      }
+
+
+    const  NewRequestVideos = async(q,forder)=>{
+               setVideos([]);
+               let resultApiYoutube= new  ApiYoutube()
+               resultApiYoutube  =   await resultApiYoutube.get( `search?part=snippet&maxResults=${maxResults}&q=${q}&type=video&order=${forder}&`);
+                    if(resultApiYoutube.items !=undefined){
+               setVideos(resultApiYoutube.items)
+               setNextPageToken(resultApiYoutube.nextPageToken)
+               console.log(resultApiYoutube)
+                }}
+
 
       const buscarMaisVideos = async ()=>{
             let resultApiYoutube = new ApiYoutube();
             resultApiYoutube = await resultApiYoutube.get( `search?part=snippet&maxResults=${maxResults}&q=${search}&type=video&order=${order}&pageToken=${nextPageToken}&`)
-        console.log(resultApiYoutube)
-
-           for(let video  of resultApiYoutube.items){
+               for(let video  of resultApiYoutube.items){
                 let todosVideos = videos;
                 todosVideos.push(video); 
                 setVideos(todosVideos);
-            }
+              }
             setNextPageToken(resultApiYoutube.nextPageToken)
       }
     return(
-    
-    <div className="home" onClick={()=>setCount(count +1)}>
-        <Header  search_youtube={(value)=>{setSearch(value) ;}} ></Header>
-
-        <Main> 
+    <div className="home">
+        <Header   change_input_search={(value)=>{setSearch(value)} }  search_youtube={(value)=>{ NewRequestVideos(search,order)}} ></Header>   
+       
+          <Main> 
+          <div className="filter flex">
+         
+                <select  onChange={(e)=>{setOrder(e.target.value); setUpdateListVideo(true)}}>
+                        <option value='relevance'>revelancia</option>
+                        <option value='date'>data</option>
+                        <option value='videoCount'>videos enviados</option>
+                        <option value='viewCount'>visualizações</option>
+                </select>
+            </div>    
                 {videos.length<maxResults&& 
                          <AwaitVideo max_result={maxResults}></AwaitVideo>   }
     
             {videos.map((e)=>
-             <div className="container_video" key={e.id.videoId}>
+               <div className="container_video" key={e.id.videoId}>
                     <div className="video">
+                    <a href={'/watch/'+e.id.videoId}>
                                 <figure>    
                                   <img src={e.snippet.thumbnails.high.url}></img>                                  
                                  </figure>
+                                 </a> 
                      <div className="box_title">
+                     <a href={'/watch/'+e.id.videoId}>
                             <span>{e.snippet.title}</span>
+                            </a>
                         </div>
-                   
                   </div>
-      
-              </div>
+                 </div>
+            
 
             )} 
         
@@ -75,8 +94,6 @@ export default function Home (props){
                              <span onClick={()=>buscarMaisVideos()}> ver mais</span> }
                          
                             </div>
-               
-
         </Main>
           
         </div>)
