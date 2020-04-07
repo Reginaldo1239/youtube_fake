@@ -5,7 +5,7 @@ export default class ApiYoutube {
 
     constructor(){
         this.host = 'https://www.googleapis.com/youtube/v3/';
-        this.keyYoutube ='AIzaSyBUKkrIe8CXTNOiZ7iqJ1c5-SxAir3jm7M'  
+        this.keyYoutube ='AIzaSyBdb_sqbf_6kA20QIe7a7WqLI5jNGeUPtA';
         this.myHeaders=new Headers();
         this.myInit = { method: 'GET',
         headers: this.myHeaders,

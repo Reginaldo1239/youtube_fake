@@ -15,28 +15,21 @@ export default function Home (props){
 
     useEffect(() => {
 
-
-      
-      if(window.location.search.indexOf('?q=') != -1 && updateListVideo){
-        let q = window.location.search.split('?q=')[1];
-          NewRequestVideos(q,order);
-          setUpdateListVideo(false)
-      }else{
-        if(updateListVideo){
+          if(window.location.search.indexOf('?q=') != -1){
+            setSearch(window.location.search.split('?q=')[1])
+          }
           NewRequestVideos(search,order);
-          setUpdateListVideo(false)
-           }     
-           }
       
 
-      });
+      },[search,order]);
 
 
     const  NewRequestVideos = async(q,forder)=>{
                setVideos([]);
                let resultApiYoutube= new  ApiYoutube()
                resultApiYoutube  =   await resultApiYoutube.get( `search?part=snippet&maxResults=${maxResults}&q=${q}&type=video&order=${forder}&`);
-                    if(resultApiYoutube.items !=undefined){
+               console.log(resultApiYoutube)
+               if(resultApiYoutube.items !=undefined){
                setVideos(resultApiYoutube.items)
                setNextPageToken(resultApiYoutube.nextPageToken)
                console.log(resultApiYoutube)
@@ -55,7 +48,7 @@ export default function Home (props){
       }
     return(
     <div className="home">
-        <Header   change_input_search={(value)=>{setSearch(value)} }  search_youtube={(value)=>{ NewRequestVideos(search,order)}} ></Header>   
+        <Header   change_input_search={(value)=>{} }  search_youtube={(value)=>{setSearch(value)}} ></Header>   
        
           <Main> 
           <div className="filter flex">
@@ -92,9 +85,12 @@ export default function Home (props){
                         <div className="container center">
                             {videos.length>0 && 
                              <span onClick={()=>buscarMaisVideos()}> ver mais</span> }
-                         
                             </div>
         </Main>
-          
+
+        <footer>
+              <span> todos direitos reservados 2020</span>
+        </footer>
+                              
         </div>)
 }

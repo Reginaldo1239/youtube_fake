@@ -1,9 +1,10 @@
     .watch_video{
         main.flex{
                 justify-content: center;
+            
            
             .container{
-                width: 50%;
+                width: 70%;
                 iframe{
                     width:  100%;
                     min-height: 500px;
@@ -12,5 +13,55 @@
                     margin: 10px 0;
                 }
             }
+
+        
+
+        
+        @media (max-width:576px ) and (min-width:0px) {           
+            .container{
+            width:90%;
+            h2{
+                font-size: 18px;
+                margin: 10px 0;
+                color:red;
+            }
+            iframe{
+                width:  100%;
+                min-height: 300px;
+            } 
+        }
+}
+
+        // Dispositivos médios (tablets com 768px ou mais)
+        @media (max-width:768px)  and (min-width:577px){
+            .container{
+                width:90%;
+                h2{
+                    font-size: 18px;
+                    margin: 10px 0;
+                    color:blue;
+                }
+                iframe{
+                    width:  100%;
+                    min-height: 200px;
+                }
+            }
+         }
+         
+        // Dispositivos large (desktops com 992px ou mais)
+        @media (max-width:992px) and (min-width:767px) {          
+    .container{
+            width:100%;
+            h2{
+                font-size: 18px;
+                margin: 10px 0;
+                color:green;
+            }
+            iframe{
+                width:  100%;
+                min-height: 200px;
+            }
         }
     }
+    }
+}
