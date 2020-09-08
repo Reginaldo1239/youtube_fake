@@ -67,14 +67,14 @@ export default function Home (props){
         <Header ></Header>   
        
           <Main> 
-          <div className="filter">
+        {/*  <div className="filter">
                 <select  onChange={(e)=>{setOrder(e.target.value);}}>
                         <option value='relevance'>revelancia</option>
                         <option value='date'>data</option>
                         <option value='videoCount'>videos enviados</option>
                         <option value='viewCount'>visualizações</option>
                 </select>
-            </div>    
+    </div>    */}
                 {!completedRequest&& 
                          <AwaiVideoAnimation max_result={maxResults}></AwaiVideoAnimation>}
             {listVideos.map((e,index)=>
