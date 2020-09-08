@@ -1,0 +1,40 @@
+.container_video{
+    width: 25%;
+    margin: 10px 0;
+    border-radius: 5px;
+    a{
+        color: black;
+    }
+     .video{
+        padding:  5px 10px;
+        .img{
+            width: 100%;
+            padding: 100px 0;
+            background-size: contain;
+        }
+        .box_title{
+            color: black;
+            line-height: 25px;    
+        }
+    } 
+}
+
+.container_video:hover{
+    background-color: #F8F8F8;
+    .img{
+        background-size: cover;
+        
+    }
+}
+
+
+@media (max-width: 600px){
+.container_video{
+  width: 100%;
+ margin: 10px 0;
+ a{
+ color: black;
+    }
+}
+ 
+    }

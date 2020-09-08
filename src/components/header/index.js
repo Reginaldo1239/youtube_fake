@@ -1,17 +1,16 @@
 import React from 'react';
 import { GoSearch } from 'react-icons/go';
+import {useHistory} from 'react-router-dom';
 
 import './style.scss';
 export default function Header(props){
 
-
+    const history = useHistory();
     return(
         <header className="flex">
-                <div className="container">
-            
-                  
-                        <input id="search"  onChange={(e)=>{props.change_input_search(e.target.value)}} ></input>
-                        <div className="btn_search"  onClick={(e)=>props.search_youtube(document.getElementById('search').value)}>
+                <div className="container"> 
+                        <input id="search"   ></input>
+                        <div className="btn_search"  onClick={(e)=>history.push('/'+document.getElementById('search').value)}>
                         <GoSearch />
                         </div>   
                     </div> 

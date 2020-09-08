@@ -5,20 +5,23 @@ header.flex{
         display: inline-block;
         margin: 10px 0;
         position: relative;
+      
+       padding: 20px;
         .btn_search{
             position: absolute;
-            top:5px;
-            right: 5px;
+            top:28px;
+            right: 25px;
             font-size: 20px;
             cursor: pointer;
-       
-           
+            border: none;
         }
         input{
-            font-size: 20px;
-           border-right:none;
+          font-size: 20px;
+           padding: 5px;
            padding-right: 30px;
-
+           border: none;
+            background-color: #F8F8F8;
+           border-radius: 8px;
         }
 
     }

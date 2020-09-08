@@ -5,28 +5,27 @@ export default class ApiYoutube {
 
     constructor(){
         this.host = 'https://www.googleapis.com/youtube/v3/';
-        this.keyYoutube ='AIzaSyBdb_sqbf_6kA20QIe7a7WqLI5jNGeUPtA';
+        this.keyYoutube ='AIzaSyBfTbIGoDLSWgG5YGgYIBq3-P1m-IxN3oc';
         this.myHeaders=new Headers();
         this.myInit = { method: 'GET',
         headers: this.myHeaders,
         mode: 'cors',
         cache: 'default',
         Authorization:'Bearer '+ this.keyYoutube,
-        Accept: 'application/json'
+        Accept: 'application/json' 
      }; 
     } 
      get= (endpoint)=>{   
-           return new Promise((resolver,reject)=>{
-            fetch(this.host+endpoint+'key='+this.keyYoutube,this.myInit)
+           return new Promise(async (resolver,reject)=>{
+        fetch(this.host+endpoint+'&key='+this.keyYoutube,this.myInit)
             .then((res)=>{
-                resolver(res.json());
-
+              
+              resolver({status:res.status, data:res.json()});
             }).catch((e)=>{
-                reject(e.json());
+                console.log(e);
+               reject(e.json()); 
             })
-
-            
-
-        })
+        
+        }) 
     }
 }

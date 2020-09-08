@@ -22,13 +22,19 @@ export default function WatchVideo(){
 
     const  getVideo = async () =>{
         let video = new ApiYoutube();
-            let result =  await video.get(`videos?part=snippet&id=${idVideo}&`)
-            setInfoVideo(result.items[0])
+            let result =  await video.get(`videos?part=snippet&id=${idVideo}`)
+        if(result.status===200){
+            result = await result.data;
+             setInfoVideo(result.items[0])
         let   arrayDescription = result.items[0].snippet.description.split(': ');
         setArrayDescription(arrayDescription);
            arrayDescription.map((e)=>{
                console.log(e) 
            })
+        }else{
+            result = await result.data;
+        
+        }
         } 
       
     return(

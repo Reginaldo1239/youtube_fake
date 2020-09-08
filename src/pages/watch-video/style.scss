@@ -5,6 +5,9 @@
            
             .container{
                 width: 70%;
+                h2{
+                    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+                }
                 iframe{
                     width:  100%;
                     min-height: 500px;
@@ -23,7 +26,7 @@
             h2{
                 font-size: 18px;
                 margin: 10px 0;
-                color:red;
+            
             }
             iframe{
                 width:  100%;
@@ -39,7 +42,7 @@
                 h2{
                     font-size: 18px;
                     margin: 10px 0;
-                    color:blue;
+          
                 }
                 iframe{
                     width:  100%;

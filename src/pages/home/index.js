@@ -1,89 +1,88 @@
 import React, { useEffect,useState } from 'react';
+import {useDispatch,useSelector } from 'react-redux';
+import {addVideoToListAction,restarVideoListAction} from '../../redux/actions/youtube';
 import Header from '../../components/header'
 import Main from '../../components/main';
-import AwaitVideo  from '../../components/animations/await_video';
+import AwaiVideoAnimation  from '../../components/animations/await_video_animation';
 import ApiYoutube from '../../api-youtube';
+import ItemVideo from '../../components/item_video';
+import {useHistory,useParams} from 'react-router-dom';
 import './style.scss';
 export default function Home (props){
-    const [count, setCount] = useState(0);
-    const [nextPageToken,setNextPageToken ] =useState('');
+  const {q} = useParams();
     const [maxResults,setMaxResults] = useState(16);
-    const [search,setSearch] =useState(''); 
-    const [videos,setVideos] = useState([]);
     const [order,setOrder] = useState('relevance')
-    const [updateListVideo, setUpdateListVideo]= useState(true);
-
+    const [completedRequest,setCompletedRequest] = useState(false);
+    const dispatch =useDispatch();
+    const {nextPageToken,prevPageToken,listVideos}=useSelector(state=>state.YoutubeReducer);
+ 
+    
     useEffect(() => {
-
-          if(window.location.search.indexOf('?q=') != -1){
-            setSearch(window.location.search.split('?q=')[1])
+          if(listVideos.length===0 ||q!= undefined){
+            NewRequestVideos(q,order);
           }
-          NewRequestVideos(search,order);
-      
-
-      },[search,order]);
+      },[q,order]); 
 
 
-    const  NewRequestVideos = async(q,forder)=>{
-               setVideos([]);
+ 
+    const  NewRequestVideos = async()=>{
+      setCompletedRequest(false);
                let resultApiYoutube= new  ApiYoutube()
-               resultApiYoutube  =   await resultApiYoutube.get( `search?part=snippet&maxResults=${maxResults}&q=${q}&type=video&order=${forder}&`);
-               console.log(resultApiYoutube)
-               if(resultApiYoutube.items !=undefined){
-               setVideos(resultApiYoutube.items)
-               setNextPageToken(resultApiYoutube.nextPageToken)
-               console.log(resultApiYoutube)
+               resultApiYoutube  =   await resultApiYoutube.get( `search?part=snippet&maxResults=${maxResults}&q=${q}&type=video&order=${order}`);
+               if(resultApiYoutube.status===200){
+                resultApiYoutube = await resultApiYoutube.data;
+                console.log(resultApiYoutube)
+                    dispatch(restarVideoListAction(
+                      {
+                        newVideos:resultApiYoutube.items,
+                        nextPageToken:resultApiYoutube.nextPageToken
+                      }));
+                      setCompletedRequest(true)
+                }else{
+                  resultApiYoutube = await resultApiYoutube.data;
+                  setCompletedRequest(true)
                 }}
 
 
       const buscarMaisVideos = async ()=>{
+        setCompletedRequest(false)
             let resultApiYoutube = new ApiYoutube();
-            resultApiYoutube = await resultApiYoutube.get( `search?part=snippet&maxResults=${maxResults}&q=${search}&type=video&order=${order}&pageToken=${nextPageToken}&`)
-               for(let video  of resultApiYoutube.items){
-                let todosVideos = videos;
-                todosVideos.push(video); 
-                setVideos(todosVideos);
-              }
-            setNextPageToken(resultApiYoutube.nextPageToken)
+            resultApiYoutube = await resultApiYoutube.get( `search?part=snippet&maxResults=${maxResults}&q=${q}&type=video&order=${order}&pageToken=${nextPageToken}&`)
+            if(resultApiYoutube.status===200){
+              resultApiYoutube = await resultApiYoutube.data;  
+              console.log(resultApiYoutube)
+              dispatch(addVideoToListAction(
+                {
+                  newVideos:resultApiYoutube.items,
+                  nextPageToken:resultApiYoutube.nextPageToken,
+                  prevPageToken:resultApiYoutube.prevPageToken
+                })); 
+                setCompletedRequest(true)
+            }
+        
       }
     return(
     <div className="home">
-        <Header   change_input_search={(value)=>{} }  search_youtube={(value)=>{setSearch(value)}} ></Header>   
+      
+        <Header ></Header>   
        
           <Main> 
-          <div className="filter flex">
-         
-                <select  onChange={(e)=>{setOrder(e.target.value); setUpdateListVideo(true)}}>
+          <div className="filter">
+                <select  onChange={(e)=>{setOrder(e.target.value);}}>
                         <option value='relevance'>revelancia</option>
                         <option value='date'>data</option>
                         <option value='videoCount'>videos enviados</option>
                         <option value='viewCount'>visualizações</option>
                 </select>
             </div>    
-                {videos.length<maxResults&& 
-                         <AwaitVideo max_result={maxResults}></AwaitVideo>   }
-    
-            {videos.map((e)=>
-               <div className="container_video" key={e.id.videoId}>
-                    <div className="video">
-                    <a href={'/watch/'+e.id.videoId}>
-                                <figure>    
-                                  <img src={e.snippet.thumbnails.high.url}></img>                                  
-                                 </figure>
-                                 </a> 
-                     <div className="box_title">
-                     <a href={'/watch/'+e.id.videoId}>
-                            <span>{e.snippet.title}</span>
-                            </a>
-                        </div>
-                  </div>
-                 </div>
-            
-
+                {!completedRequest&& 
+                         <AwaiVideoAnimation max_result={maxResults}></AwaiVideoAnimation>}
+            {listVideos.map((e,index)=>
+          <ItemVideo key={index} values={e}></ItemVideo>
             )} 
         
                         <div className="container center">
-                            {videos.length>0 && 
+                            {listVideos.length>0 && 
                              <span onClick={()=>buscarMaisVideos()}> ver mais</span> }
                             </div>
         </Main>

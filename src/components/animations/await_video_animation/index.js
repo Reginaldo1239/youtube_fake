@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import './style.scss'
- export default function AwaiVideo(props){
+ export default function AwaiVideoAnimation(props){
    const [videosAwait,setVideosAwait] = useState([]);
      useEffect(()=>{
         totaldevideosAwait();
