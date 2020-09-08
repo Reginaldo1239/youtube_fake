@@ -1,3 +1,6 @@
+Reginaldo 
+
+React;
 
 projeto basico que pesquisa, lista e ordena videos do youtube;
 para rodar o projeto npm install.
