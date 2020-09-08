@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {BrowserRouter, Switch,Route} from 'react-router-dom';
+import {BrowserRouter, Switch,Route } from 'react-router-dom';
 import Home from '../pages/home'
 import WatchVideo from '../pages/watch-video';
 import App from '../App';

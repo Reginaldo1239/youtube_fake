@@ -11,6 +11,7 @@ header.flex{
         width: 10%;
 
         .logo{
+            width: 100%;
             h2{
                 color:red;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,16 +25,17 @@ header.flex{
         display: inline-block;
         position: relative; 
         margin:0 auto;
-  
+        width: 45%;
         .btn_search{
             position: absolute;
             top:7px;
-            right: 4px;
+            right:5px;
             font-size: 20px;
             cursor: pointer;
             border: none;
         }
         input{
+         width: 100%;
           font-size: 20px;
            padding: 5px;
            padding-right: 30px;
@@ -46,17 +48,30 @@ header.flex{
 
 
 
-    @media (max-width: 600px){
-        .container{
-            padding: 20px 0;
-        }
-        .container:first-child{
-            width: 25%;
-       
-        }
-        .container:last-child{
-            width: 75%;
-    }
 }
 
+@media only screen and (max-width: 870px) {
+
+    header.flex{
+        justify-content: space-between;
+    .container{
+        padding: 20px 0;
+    }
+    .container:first-child{
+        width: 20%;
+        .logo{
+            h2{
+                
+                color:red;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        }
+    }
+    .container:last-child{
+        width: 60%;
+        .search{
+            width: 80%;
+        } 
+}
+}
 }
