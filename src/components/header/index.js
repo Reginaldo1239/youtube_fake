@@ -7,13 +7,24 @@ export default function Header(props){
 
     const history = useHistory();
     return(
-        <header className="flex">
-                <div className="container"> 
-                        <input id="search"   ></input>
-                        <div className="btn_search"  onClick={(e)=>history.push('/'+document.getElementById('search').value)}>
-                        <GoSearch />
-                        </div>   
-                    </div> 
+        <header className="flex center">
+            <div className="container">
+                    <div className="logo">
+                         <h2>youtube </h2>
+                    </div>
+                </div>
+                <div className="container">
+                    <div className="search">
+                            <input id="search"   ></input>
+                            <div className="btn_search"  onClick={(e)=>history.push('/'+document.getElementById('search').value)}>
+                            <GoSearch />
+                            </div>   
+                            </div>
+                       
+                </div> 
+
+
+               
                 
         </header>
     )
