@@ -6,7 +6,7 @@ export default function YoutubeReducer (state=stateInitial,action){
         case 'ADD_VIDEO_TO_LIST':
             return {
                 ...state,listVideos:state.listVideos.concat(action.newVideos),
-                nextPageToken:action.nextPageToken,
+                nextPageToken:action.nextPageToken, 
                 prevPageToken:action.prevPageToken
             }
         case 'RESTART_VIDEO_LIST':
